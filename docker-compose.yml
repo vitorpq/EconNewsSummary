@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  api_gateway:
+    build:
+      context: ./api_gateway
+      dockerfile: Dockerfile
+    volumes:
+      - ./.env:/app/.env
+      - ./api_gateway:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    ports:
+      - "8000:8000"  # Expondo a porta da API
+    depends_on:
+      - telegram-collector
+      - summarizer
+    restart: unless-stopped
+
+  telegram-collector:
+    build:
+      context: ./services/telegram-collector
+      dockerfile: Dockerfile
+    volumes:
+      - ./.env:/app/.env
+      - ./services/telegram-collector:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+
+  summarizer:
+    build:
+      context: ./services/summarizer
+      dockerfile: Dockerfile
+    volumes:
+      - ./.env:/app/.env
+      - ./services/summarizer:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped 
