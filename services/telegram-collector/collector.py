@@ -19,8 +19,15 @@ CHANNEL_IDENTIFIER = os.getenv("TELEGRAM_CHANNEL")
 SESSION_NAME = os.getenv("TELEGRAM_SESSION_NAME")
 
 async def get_all_yesterday_messages():
+    """
+    Retrieves all messages from the specified Telegram channel for the previous day.
+    On Mondays, it retrieves messages from Friday and the current day until 12h.
+
+    Returns:
+        list: A list of message texts.
+    """
     today = datetime.now()
-    is_monday = today.weekday() == 0  # 0 representa segunda-feira
+    is_monday = today.weekday() == 0  # 0 represents segunda-feira
     
     if is_monday:
         # Para segunda-feira, buscamos mensagens de sexta e do dia atual até 12h

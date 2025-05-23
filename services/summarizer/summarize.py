@@ -26,19 +26,34 @@ GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 CACHE_FILE = Path(__file__).parent / "summary_cache.json"
 
 def load_cache():
-    """Carrega o cache do arquivo JSON"""
+    """
+    Carrega o cache do arquivo JSON.
+
+    Returns:
+        dict: Um dicionário contendo os resumos cacheados, ou um dicionário vazio se o arquivo não existir.
+    """
     if CACHE_FILE.exists():
         with open(CACHE_FILE, 'r', encoding='utf-8') as f:
             return json.load(f)
     return {}
 
 def save_cache(cache_data):
-    """Salva o cache no arquivo JSON"""
+    """
+    Salva o cache no arquivo JSON.
+
+    Args:
+        cache_data (dict): O dicionário contendo os resumos a serem cacheados.
+    """
     with open(CACHE_FILE, 'w', encoding='utf-8') as f:
         json.dump(cache_data, f, ensure_ascii=False, indent=2)
 
 def get_cache_key():
-    """Gera a chave do cache baseada na data atual"""
+    """
+    Gera a chave do cache baseada na data atual.
+
+    Returns:
+        str: Uma string representando a chave do cache, que muda diariamente ou semanalmente (segundas-feiras).
+    """
     today = datetime.now()
     if today.weekday() == 0:  # Segunda-feira
         return f"monday_{today.strftime('%Y-%m-%d')}"
@@ -61,6 +76,15 @@ Resumo claro, direto e com tópicos:
 summarize_chain = summary_prompt | llm
 
 def clean_text(text):
+    """
+    Limpa o texto removendo disclaimers, links e espaçamentos excessivos.
+
+    Args:
+        text (str): O texto a ser limpo.
+
+    Returns:
+        str: O texto limpo.
+    """
     # Remove disclaimers repetitivos
     text = re.sub(r'Disclaimer ActivTrades.*?derivativos__', '', text, flags=re.DOTALL)
     # Remove links
@@ -70,6 +94,15 @@ def clean_text(text):
     return text.strip()
 
 def summarize(texts):
+    """
+    Gera um resumo das notícias fornecidas, utilizando um cache para evitar repetições desnecessárias.
+
+    Args:
+        texts (list): Uma lista de strings contendo as notícias a serem resumidas.
+
+    Returns:
+        str: Um resumo das notícias.
+    """
     # Verifica o cache primeiro
     cache = load_cache()
     cache_key = get_cache_key()
