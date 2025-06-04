@@ -7,10 +7,6 @@
 
 # ECONEWS SUMMARY
 
-<em></em>
-
-<!-- BADGES -->
-<!-- local repository, no metadata badges. -->
 
 <em>Built with the tools and technologies:</em>
 
@@ -25,11 +21,12 @@
 ## Table of Contents
 
 - [ECONEWS SUMMARY](#econews-summary)
-	- [Table of Contents](#table-of-contents)
-	- [Overview](#overview)
-	- [Project Structure](#project-structure)
-	- [Roadmap](#roadmap)
-	- [License](#license)
+  - [Table of Contents](#table-of-contents)
+  - [Overview](#overview)
+  - [ToDo](#todo)
+  - [Project Structure](#project-structure)
+  - [Roadmap](#roadmap)
+  - [License](#license)
 
 ---
 
@@ -37,6 +34,17 @@
 A Python-based economic news summarizer. This application integrates with a custom API to extract raw economic data and news from specified Telegram channels, subsequently processing and generating concise summaries.
 
 ---
+
+## ToDo
+- Acrescentar RSS de sites
+- Acrescentar dados do PIB, IPCA, Emprego, Taxa de Juros
+
+**Fontes:**
+- https://www.cmegroup.com/pt/markets/interest-rates/cme-fedwatch-tool.html
+- Curvas de juros
+- Variação do Dólar
+- Renda Fixa na Prática
+- MoneyDrop
 
 ## Project Structure
 

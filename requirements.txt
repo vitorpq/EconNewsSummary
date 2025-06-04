@@ -1,2 +1,14 @@
-telethon>=1.28.5
-python-dotenv>=1.0.0 
+fastapi==0.115.12
+google-ai-generativelanguage==0.6.18
+google-api-core==2.24.2
+google-auth==2.40.2
+googleapis-common-protos==1.70.0
+langchain==0.3.25
+langchain-core==0.3.61
+langchain-google-genai==2.1.4
+langchain-text-splitters==0.3.8
+langsmith==0.3.42
+python-dotenv==1.1.0
+streamlit==1.45.1
+Telethon==1.40.0
+uvicorn==0.34.2

@@ -1,40 +1,11 @@
-version: '3.8'
-
 services:
-  api_gateway:
-    build:
-      context: ./api_gateway
-      dockerfile: Dockerfile
-    volumes:
-      - ./.env:/app/.env
-      - ./api_gateway:/app
-    environment:
-      - PYTHONUNBUFFERED=1
+  # Seu serviço, pode ter outro nome, ex: 'app', 'web', 'minha_aplicacao'
+  econnewssummary: # O nome que você está usando para o serviço
+    build: . # Isso indica que o Docker Compose deve construir a imagem a partir do Dockerfile no diretório atual
     ports:
-      - "8000:8000"  # Expondo a porta da API
-    depends_on:
-      - telegram-collector
-      - summarizer
-    restart: unless-stopped
-
-  telegram-collector:
-    build:
-      context: ./services/telegram-collector
-      dockerfile: Dockerfile
-    volumes:
-      - ./.env:/app/.env
-      - ./services/telegram-collector:/app
-    environment:
-      - PYTHONUNBUFFERED=1
-    restart: unless-stopped
-
-  summarizer:
-    build:
-      context: ./services/summarizer
-      dockerfile: Dockerfile
-    volumes:
-      - ./.env:/app/.env
-      - ./services/summarizer:/app
-    environment:
-      - PYTHONUNBUFFERED=1
-    restart: unless-stopped 
+      - "8000:8000" # Mapeia a porta 8000 do host para a porta 8000 do contêiner (FastAPI)
+      - "8502:8502" # Mapeia a porta 8502 do host para a porta 8502 do contêiner (Streamlit)
+    # Se você já tiver configurado variáveis de ambiente em .env:
+    env_file:
+      - .env
+    # ... outras configurações (volumes, environment, etc.)
